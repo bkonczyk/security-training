@@ -1,10 +1,9 @@
 package pl.sda.spring.securitytraining.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/users")
@@ -14,6 +13,7 @@ public class UserController {
     private final UserService service;
 
     @PostMapping("/create")
+    @ResponseStatus(CREATED)
     public void createUser(@RequestBody CreateUserRequest request) {
         service.createUser(request);
     }
