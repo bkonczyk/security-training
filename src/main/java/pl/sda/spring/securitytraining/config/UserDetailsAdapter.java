@@ -1,9 +1,10 @@
-package pl.sda.spring.securitytraining;
+package pl.sda.spring.securitytraining.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.sda.spring.securitytraining.user.User;
 
 import java.util.Collection;
 import java.util.List;

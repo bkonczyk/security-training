@@ -1,8 +1,10 @@
-package pl.sda.spring.securitytraining;
+package pl.sda.spring.securitytraining.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.sda.spring.securitytraining.user.User;
+import pl.sda.spring.securitytraining.user.UserRepository;
 
 import javax.annotation.PostConstruct;
 

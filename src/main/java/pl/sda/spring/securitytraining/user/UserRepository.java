@@ -1,4 +1,4 @@
-package pl.sda.spring.securitytraining;
+package pl.sda.spring.securitytraining.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
