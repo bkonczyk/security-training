@@ -5,18 +5,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.sda.spring.securitytraining.user.UserRepository;
+import pl.sda.spring.securitytraining.user.User;
+import pl.sda.spring.securitytraining.user.UserService;
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository repository;
+    private final UserService service;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findById(username)
-            .map(UserDetailsAdapter::new)
-            .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        User user = service.findByUsername(username);
+        return new UserDetailsAdapter(user);
     }
 }

@@ -1,6 +1,7 @@
 package pl.sda.spring.securitytraining.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,10 @@ public class UserService {
             "ROLE_USER");
 
         repository.save(user);
+    }
+
+    public User findByUsername(String username) {
+        return repository.findById(username)
+            .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 }
