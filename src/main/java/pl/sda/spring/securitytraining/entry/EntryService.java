@@ -1,12 +1,11 @@
 package pl.sda.spring.securitytraining.entry;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.sda.spring.securitytraining.user.User;
 import pl.sda.spring.securitytraining.user.UserService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,12 +20,18 @@ public class EntryService {
         repository.save(entry);
     }
 
-    public List<EntryListView> getAllEntries() {
-        List<Entry> entries = repository.findAll();
-        return entries.stream()
-            .map(this::mapToListView)
-            .collect(Collectors.toList());
+    public Page<EntryListView> getPage(Pageable pageable) {
+        return repository
+            .findAll(pageable)
+            .map(this::mapToListView);
     }
+
+//    public List<EntryListView> getAllEntries() {
+//        List<Entry> entries = repository.findAll();
+//        return entries.stream()
+//            .map(this::mapToListView)
+//            .collect(Collectors.toList());
+//    }
 
     private EntryListView mapToListView(Entry entry) {
         return new EntryListView()

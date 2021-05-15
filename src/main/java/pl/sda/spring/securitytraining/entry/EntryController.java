@@ -1,6 +1,10 @@
 package pl.sda.spring.securitytraining.entry;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -22,8 +26,8 @@ public class EntryController {
     }
 
     @GetMapping
-    public List<EntryListView> getAllEntries() {
-        return service.getAllEntries();
+    public Page<EntryListView> getAllEntries(@PageableDefault(size = 5) Pageable pageable) {
+        return service.getPage(pageable);
     }
     // 1. Endpoint @GetMapping zwracający wszystkie istniejące wpisy
     // 2. Chcę widzieć username authora, contents i creationDate
