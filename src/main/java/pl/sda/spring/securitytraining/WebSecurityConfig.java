@@ -25,13 +25,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout().permitAll();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
-            .and()
-            .withUser("user").password(passwordEncoder().encode("password")).roles("USER");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//            .withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
+//            .and()
+//            .withUser("user").password(passwordEncoder().encode("password")).roles("USER");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
