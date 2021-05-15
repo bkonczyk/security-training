@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateEntryRequest {
+public class CreateUpdateEntryRequest {
 
     private String contents;
 }

@@ -2,15 +2,14 @@ package pl.sda.spring.securitytraining.entry;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/entries")
@@ -21,7 +20,7 @@ public class EntryController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public void create(@RequestBody CreateEntryRequest request, Principal principal) {
+    public void create(@RequestBody CreateUpdateEntryRequest request, Principal principal) {
         service.createEntry(request, principal.getName());
     }
 
@@ -29,9 +28,10 @@ public class EntryController {
     public Page<EntryListView> getAllEntries(@PageableDefault(size = 5) Pageable pageable) {
         return service.getPage(pageable);
     }
-    // 1. Endpoint @GetMapping zwracający wszystkie istniejące wpisy
-    // 2. Chcę widzieć username authora, contents i creationDate
-    // Nowy DTO: EntryListView
-    // Nowy endpoint w controllerze
-    // w serwisie zmapować Entry na nowy DTO i zwrócić przez controller
+
+    @PutMapping("/{id}")
+    @ResponseStatus(NO_CONTENT)
+    public void updateEntry(@PathVariable Long id, @RequestBody CreateUpdateEntryRequest request) {
+        service.update(id, request);
+    }
 }

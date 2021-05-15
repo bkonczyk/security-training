@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import pl.sda.spring.securitytraining.user.User;
 import pl.sda.spring.securitytraining.user.UserService;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 public class EntryService {
@@ -14,7 +16,7 @@ public class EntryService {
     private final EntryRepository repository;
     private final UserService userService;
 
-    public void createEntry(CreateEntryRequest request, String username) {
+    public void createEntry(CreateUpdateEntryRequest request, String username) {
         User author = userService.findByUsername(username);
         Entry entry = new Entry(request.getContents(), author);
         repository.save(entry);
@@ -38,5 +40,11 @@ public class EntryService {
             .setAuthor(entry.getAuthor().getUsername())
             .setContents(entry.getContents())
             .setCreationTimestamp(entry.getCreationDate());
+    }
+
+    public void update(Long id, CreateUpdateEntryRequest request) {
+        Entry entry = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entry not found"));
+        entry.setContents(request.getContents());
+        repository.save(entry);
     }
 }
